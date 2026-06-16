@@ -1,0 +1,39 @@
+# Citeline Community Connector Spec
+# This file defines the specification for the connector including
+# connection parameters and allowlist options.
+#
+# Informa / Citeline pharma and life-sciences data platform.
+# Authentication: email + password exchanged for a short-lived JWT Bearer token
+# via POST https://api.citeline.com/token (expires_in: 86400 seconds).
+
+# ============================================================================
+# Connection Parameters
+# These are provided when creating the Unity Catalog connection.
+# ============================================================================
+display_name: Citeline
+connection:
+  parameters:
+    - name: email
+      type: string
+      required: true
+      description: >
+        Email address registered with your Citeline account.
+        This is submitted to POST https://api.citeline.com/token to obtain a
+        short-lived JWT Bearer token for API access.
+
+    - name: password
+      type: string
+      required: true
+      secret: true
+      description: >
+        Password associated with your Citeline account email.
+        Combined with email to obtain a short-lived JWT Bearer token
+        (valid 24 hours / 86400 seconds).
+
+# ============================================================================
+# External Options Allowlist
+# These table-specific options must be included in the externalOptionsAllowList
+# parameter of the UC connection to allow them to be passed through.
+# Use a comma-separated string of option names.
+# ============================================================================
+external_options_allowlist: "max_records_per_batch"
